@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
+import { ChessTimer } from '../components/ChessTimer/ChessTimer';
 
 const Home: React.FC = () => {
   return (
@@ -17,6 +17,7 @@ const Home: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <h1>Hello Chesson Mobile!</h1>
+        <ChessTimer seconds={100} initSeconds={100} />
       </IonContent>
     </IonPage>
   );
