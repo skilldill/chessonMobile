@@ -1,7 +1,3 @@
-export const useCellSize = (defaultValue: number) => {
-	if (typeof window === undefined) return defaultValue;
-	// if (window.innerWidth <= 460) return 36;
-	// if (window.innerWidth < 1144) return 44;
-	if (window.innerWidth < 1441 || window.innerHeight < 1150) return 84;
-	return defaultValue;
+export const useCellSize = () => {
+	return window.innerWidth / 8;
 }
