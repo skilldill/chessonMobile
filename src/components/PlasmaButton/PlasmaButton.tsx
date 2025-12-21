@@ -9,8 +9,8 @@ type PlasmaButtonProps = {
   active?: boolean;
 };
 
-const WIDTH = 96;
-const HEIGHT = 28;
+const WIDTH = 100;
+const HEIGHT = 32;
 const RADIUS_PX = 9999;
 
 // Plasma colors
