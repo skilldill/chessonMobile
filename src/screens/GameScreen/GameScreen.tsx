@@ -5,6 +5,72 @@ import { useCellSize } from '../../hooks/useCellSize';
 import { ChessBoard } from 'react-chessboard-ui';
 import { PlasmaButton } from '../../components/PlasmaButton/PlasmaButton';
 import { CapturedPieces } from '../../components/CapturedPieces/CapturedPieces';
+import { Profile } from '../../components/Profile/Profile';
+import CatAvatarPNG from './cat1.png';
+import { HistoryMoves } from '../../components/HistoryMoves/HistoryMoves';
+
+const MOVES = [
+  {
+      figure: { type: "king", color: "white", touched: true },
+      from: [7, 7],
+      to: [7, 6],
+      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
+  },
+  {
+      figure: { type: "pawn", color: "black", touched: true },
+      from: [0, 1],
+      to: [0, 3],
+      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
+  },
+  {
+      figure: { type: "king", color: "white", touched: true },
+      from: [7, 7],
+      to: [7, 6],
+      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
+  },
+  {
+      figure: { type: "pawn", color: "black", touched: true },
+      from: [0, 1],
+      to: [0, 3],
+      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
+  },
+  {
+      figure: { type: "king", color: "white", touched: true },
+      from: [7, 7],
+      to: [7, 6],
+      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
+  },
+  {
+      figure: { type: "pawn", color: "black", touched: true },
+      from: [0, 1],
+      to: [0, 3],
+      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
+  },
+  {
+      figure: { type: "king", color: "white", touched: true },
+      from: [7, 7],
+      to: [7, 6],
+      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
+  },
+  {
+      figure: { type: "pawn", color: "black", touched: true },
+      from: [0, 1],
+      to: [0, 3],
+      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
+  },
+  {
+      figure: { type: "king", color: "white", touched: true },
+      from: [7, 7],
+      to: [7, 6],
+      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
+  },
+  {
+      figure: { type: "pawn", color: "black", touched: true },
+      from: [0, 1],
+      to: [0, 3],
+      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
+  },
+];
 
 const GameScreen: React.FC = () => {
   const cellSize = useCellSize();
@@ -13,6 +79,12 @@ const GameScreen: React.FC = () => {
     <IonPage>
       <IonContent scrollY={true}>
         <div className="flex flex-col items-center justify-center h-full">
+          <div className="w-full flex justify-between px-[18px] py-[34px] items-center">
+            <ChessTimer initSeconds={120} seconds={30} />
+            <Profile color="blue" nickname="Tanya" avatar={CatAvatarPNG} />
+            <ChessTimer initSeconds={120} seconds={30} />
+          </div>
+          <HistoryMoves moves={MOVES as any} />
           <CapturedPieces 
             FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNB1KBNR w KQkq - 0 1"
             color="white"

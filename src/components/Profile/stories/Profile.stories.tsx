@@ -1,13 +1,14 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { CursorProfile } from '../CursorProfile';
+import { Profile } from '../Profile';
 import Cat1AvatarPNG from './cat1.png';
 import CatCryAvatarPNG from './catCry.jpg';
 
-const meta: Meta<typeof CursorProfile> = {
+const meta: Meta<typeof Profile> = {
     title: 'Components/CursorProfile',
     component: (args) => (
         <div className="w-[300px] h-[200px] rounded-lg border border-gray-200/20 flex items-center justify-center">
-            <CursorProfile {...args} />
+            <Profile {...args} />
         </div>
     ),
 };
