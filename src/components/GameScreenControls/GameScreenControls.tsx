@@ -96,7 +96,7 @@ export const GameScreenControls: FC<GameScreenControlsProps> = ({
     }, []);
 
     return (
-        <div className={`w-full flex justify-center ${screenSize === "L" ? "py-[36px]" : "py-[28px]"} relative`}>
+        <div className={`w-full flex justify-center relative`}>
             <div className={cn("absolute top-0 w-full z-10 flex items-center justify-center gap-[28px] scale-0 transition-all duration-300", {
                 "scale-100": showButtons,
                 "top-[-44px]": showButtons,

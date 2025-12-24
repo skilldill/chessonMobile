@@ -78,7 +78,7 @@ const GameScreen: React.FC = () => {
   return (
     <IonPage>
       <IonContent scrollY={true}>
-        <div>
+        <div className="flex flex-col h-full">
           <div className="w-full flex justify-between px-[18px] py-[34px] items-center">
             <ChessTimer initSeconds={120} seconds={30} />
             <Profile nickname="Tanya" avatar={CatAvatarPNG} />
@@ -107,7 +107,7 @@ const GameScreen: React.FC = () => {
               type: "rook",
             }}
           />
-          <div className="flex justify-center pt-[43px]">
+          <div className="flex flex-1 justify-center items-end pb-[12px]">
             <GameScreenControls 
               onDrawOffer={() => {}}
               onQuitGame={() => {}}
