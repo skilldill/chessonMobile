@@ -6,6 +6,7 @@ import HandShakePNG from "../../assets/handshake.png";
 import cn from "classnames";
 import styles from "./GameScreenControls.module.css";
 import { useScreenSize } from "../../hooks/useScreenSize";
+import { IonButton } from '@ionic/react';
 
 type RoundedControlButtonProps = {
     icon: string;
@@ -15,21 +16,21 @@ type RoundedControlButtonProps = {
 }
 
 const RoundedControlButton = ({ icon, active, onClick, onActiveClick }: RoundedControlButtonProps) => {
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (event: any) => {
         event.stopPropagation();
         active ? onActiveClick() : onClick();
     }
 
     return (
-        <button 
+        <div
             className={cn(
-                'min-w-[52px] min-h-[52px] rounded-full bg-black/60 backdrop-blur-xl flex items-center justify-center cursor-pointer border border-[#364153] transition-all duration-300 hover:scale-105 active:scale-95',
+                'min-w-[52px] min-h-[52px] bg-black/60 rounded-full backdrop-blur-xl flex items-center justify-center cursor-pointer border border-[#364153] transition-all duration-300 hover:scale-105 active:scale-95',
                 { 'w-[56px] h-[56px] border-indigo-700': active }
-            )} 
+            )}
             onClick={handleClick}
         >
             <img src={icon} alt="Control Button" height={18} width={18} />
-        </button>
+        </div>
     )
 }
 
@@ -95,7 +96,7 @@ export const GameScreenControls: FC<GameScreenControlsProps> = ({
     }, []);
 
     return (
-        <div className={`flex justify-center ${screenSize === "L" ? "py-[36px]" : "py-[28px]"} relative`}>
+        <div className={`w-full flex justify-center ${screenSize === "L" ? "py-[36px]" : "py-[28px]"} relative`}>
             <div className={cn("absolute top-0 w-full z-10 flex items-center justify-center gap-[28px] scale-0 transition-all duration-300", {
                 "scale-100": showButtons,
                 "top-[-44px]": showButtons,

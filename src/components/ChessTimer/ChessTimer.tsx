@@ -30,7 +30,7 @@ export const ChessTimer: FC<ChessTimerProps> = (props) => {
             })}>
                 <div className="w-full h-full bg-gradient-to-r from-[#4F39F6] to-[#57C3FF] rounded-r-full transition delay-150 duration-300 ease-in-out" style={{ width: `${timeInPercent}%` }} />
             </div>
-            <div className="font-semibold text-[30px] text-white">
+            <div className="font-semibold text-[26px] text-white">
                 <span>{minutesStr}</span>
                 <span>:</span>
                 <span>{secondsStr}</span>

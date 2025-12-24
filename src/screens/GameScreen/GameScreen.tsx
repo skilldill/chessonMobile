@@ -3,11 +3,11 @@ import './GameScreen.css';
 import { ChessTimer } from '../../components/ChessTimer/ChessTimer';
 import { useCellSize } from '../../hooks/useCellSize';
 import { ChessBoard } from 'react-chessboard-ui';
-import { PlasmaButton } from '../../components/PlasmaButton/PlasmaButton';
 import { CapturedPieces } from '../../components/CapturedPieces/CapturedPieces';
 import { Profile } from '../../components/Profile/Profile';
 import CatAvatarPNG from './cat1.png';
 import { HistoryMoves } from '../../components/HistoryMoves/HistoryMoves';
+import { GameScreenControls } from '../../components/GameScreenControls/GameScreenControls';
 
 const MOVES = [
   {
@@ -78,7 +78,7 @@ const GameScreen: React.FC = () => {
   return (
     <IonPage>
       <IonContent scrollY={true}>
-        <div className="flex flex-col items-center justify-center h-full">
+        <div>
           <div className="w-full flex justify-between px-[18px] py-[34px] items-center">
             <ChessTimer initSeconds={120} seconds={30} />
             <Profile color="blue" nickname="Tanya" avatar={CatAvatarPNG} />
@@ -107,8 +107,13 @@ const GameScreen: React.FC = () => {
               type: "rook",
             }}
           />
-          <div className="flex justify-center">
-            <PlasmaButton />
+          <div className="flex justify-center pt-[43px]">
+            <GameScreenControls 
+              onDrawOffer={() => {}}
+              onQuitGame={() => {}}
+              onResignation={() => {}}
+              gameEnded={false}            
+            />
           </div>
         </div>
       </IonContent>

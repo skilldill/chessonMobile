@@ -32,6 +32,7 @@ import '@ionic/react/css/typography.css';
 /* import '@ionic/react/css/palettes/dark.class.css'; */
 // import '@ionic/react/css/palettes/dark.system.css';
 
+
 /* Tailwind */
 import './styles/index.css';
 

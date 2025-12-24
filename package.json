@@ -30,6 +30,7 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "@vitest/browser-playwright": "^4.0.15",
+    "classnames": "^2.5.1",
     "ionicons": "^7.4.0",
     "react": "19.0.0",
     "react-chessboard-ui": "^1.4.7",
