@@ -81,7 +81,7 @@ const GameScreen: React.FC = () => {
         <div>
           <div className="w-full flex justify-between px-[18px] py-[34px] items-center">
             <ChessTimer initSeconds={120} seconds={30} />
-            <Profile color="blue" nickname="Tanya" avatar={CatAvatarPNG} />
+            <Profile nickname="Tanya" avatar={CatAvatarPNG} />
             <ChessTimer initSeconds={120} seconds={30} />
           </div>
           <HistoryMoves moves={MOVES as any} />
