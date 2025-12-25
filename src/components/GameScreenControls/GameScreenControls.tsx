@@ -24,12 +24,12 @@ const RoundedControlButton = ({ icon, active, onClick, onActiveClick }: RoundedC
     return (
         <div
             className={cn(
-                'min-w-[52px] min-h-[52px] bg-black/60 rounded-full backdrop-blur-xl flex items-center justify-center cursor-pointer border border-[#364153] transition-all duration-300 hover:scale-105 active:scale-95',
-                { 'w-[56px] h-[56px] border-indigo-700': active }
+                'min-w-[66px] min-h-[66px] bg-black/60 rounded-full backdrop-blur-xl flex items-center justify-center cursor-pointer border border-[#364153] transition-all duration-300 hover:scale-105 active:scale-95',
+                { 'w-[70px] h-[70px] border-indigo-700': active }
             )}
             onClick={handleClick}
         >
-            <img src={icon} alt="Control Button" height={18} width={18} />
+            <img src={icon} alt="Control Button" height={22} width={22} />
         </div>
     )
 }
@@ -99,7 +99,7 @@ export const GameScreenControls: FC<GameScreenControlsProps> = ({
         <div className={`w-full flex justify-center relative`}>
             <div className={cn("absolute top-0 w-full z-10 flex items-center justify-center gap-[28px] scale-0 transition-all duration-300", {
                 "scale-100": showButtons,
-                "top-[-44px]": showButtons,
+                "top-[-100px]": showButtons,
                 [styles.bounce]: showButtons,
             })}>
                 {!gameEnded && (

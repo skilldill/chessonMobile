@@ -1,4 +1,4 @@
-import { IonPage, IonContent } from '@ionic/react';
+import { IonPage, IonContent, IonImg } from '@ionic/react';
 import './GameScreen.css';
 import { ChessTimer } from '../../components/ChessTimer/ChessTimer';
 import { useCellSize } from '../../hooks/useCellSize';
@@ -8,6 +8,8 @@ import { Profile } from '../../components/Profile/Profile';
 import CatAvatarPNG from './cat1.png';
 import { HistoryMoves } from '../../components/HistoryMoves/HistoryMoves';
 import { GameScreenControls } from '../../components/GameScreenControls/GameScreenControls';
+import { ChessTimerWithProfile } from '../../components/ChessTimerWithProfile/ChessTimerWithProfile';
+import XSwordsSVG from '../../assets/x-swords.svg';
 
 const MOVES = [
   {
@@ -72,6 +74,27 @@ const MOVES = [
   },
 ];
 
+const PROFILES = [
+  {
+    initSeconds: 300,
+    seconds: 300,
+    nickname: 'Tanya',
+    color: 'white' as any,
+    avatar: CatAvatarPNG,
+    active: true,
+    isRightProfile: false,
+  },
+  {
+    initSeconds: 300,
+    seconds: 300,
+    nickname: 'Tanya',
+    color: 'white' as any,
+    avatar: CatAvatarPNG,
+    active: false,
+    isRightProfile: true,
+  }
+]
+
 const GameScreen: React.FC = () => {
   const cellSize = useCellSize();
 
@@ -80,11 +103,13 @@ const GameScreen: React.FC = () => {
       <IonContent scrollY={true}>
         <div className="flex flex-col h-full">
           <div className="w-full flex justify-between px-[18px] py-[34px] items-center">
-            <ChessTimer initSeconds={120} seconds={30} />
-            <Profile nickname="Tanya" avatar={CatAvatarPNG} />
-            <ChessTimer initSeconds={120} seconds={30} />
+            <div className="w-full flex justify-between items-center px-[32px]">
+              <ChessTimerWithProfile {...PROFILES[0]}/>
+              <IonImg src={XSwordsSVG} />
+              <ChessTimerWithProfile {...PROFILES[1]}/>
+            </div>
           </div>
-          <HistoryMoves moves={MOVES as any} />
+          
           <CapturedPieces 
             FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNB1KBNR w KQkq - 0 1"
             color="white"
@@ -107,6 +132,7 @@ const GameScreen: React.FC = () => {
               type: "rook",
             }}
           />
+          <HistoryMoves moves={MOVES as any} />
           <div className="flex flex-1 justify-center items-end pb-[12px]">
             <GameScreenControls 
               onDrawOffer={() => {}}
