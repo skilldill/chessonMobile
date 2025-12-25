@@ -102,8 +102,8 @@ const GameScreen: React.FC = () => {
     <IonPage>
       <IonContent scrollY={true}>
         <div className="flex flex-col h-full">
-          <div className="w-full flex justify-between px-[18px] py-[34px] items-center">
-            <div className="w-full flex justify-between items-center px-[32px]">
+          <div className="w-full flex justify-between px-[18px] py-[34px] mb-[6px] items-center">
+            <div className="w-full flex justify-between items-center px-[14px]">
               <ChessTimerWithProfile {...PROFILES[0]}/>
               <IonImg src={XSwordsSVG} />
               <ChessTimerWithProfile {...PROFILES[1]}/>
