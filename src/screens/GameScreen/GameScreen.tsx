@@ -88,7 +88,7 @@ const PROFILES = [
     initSeconds: 300,
     seconds: 300,
     nickname: 'Tanya',
-    color: 'white' as any,
+    color: 'black' as any,
     avatar: CatAvatarPNG,
     active: false,
     isRightProfile: true,
@@ -122,7 +122,7 @@ const GameScreen: React.FC = () => {
             FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
             onChange={() => {}}
             onEndGame={() => {}}
-            config={{ cellSize }}
+            config={{ cellSize, figureSizePercent: 90 }}
           />
           <CapturedPieces 
             FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
