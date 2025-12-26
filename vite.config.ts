@@ -55,6 +55,20 @@ export default defineConfig(async () => {
         ),
       },
     },
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:4000',
+          changeOrigin: true,
+          secure: false,
+        },
+        '/ws': {
+          target: 'ws://localhost:4000',
+          ws: true,
+          changeOrigin: true,
+        },
+      },
+    },
   };
 
   // Only add Vitest config if modules can be imported (skip when Storybook loads config)

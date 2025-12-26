@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "VITE_TEST_MODE=true vite",
     "build": "tsc && vite build",
     "rebuild:ios": "npm run build && npx cap sync ios",
     "restart:ios": "npm run rebuild:ios && npm run run:ios",

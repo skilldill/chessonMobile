@@ -1,5 +1,5 @@
 import { IonPage, IonContent, IonImg } from '@ionic/react';
-import './GameScreen.css';
+import './AppScreen.css';
 import { ChessTimer } from '../../components/ChessTimer/ChessTimer';
 import { useCellSize } from '../../hooks/useCellSize';
 import { ChessBoard } from 'react-chessboard-ui';
@@ -95,7 +95,7 @@ const PROFILES = [
   }
 ]
 
-const GameScreen: React.FC = () => {
+const AppScreen: React.FC = () => {
   const cellSize = useCellSize();
 
   return (
@@ -147,4 +147,4 @@ const GameScreen: React.FC = () => {
   );
 };
 
-export default GameScreen;
+export default AppScreen;

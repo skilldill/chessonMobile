@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import GameScreen from './screens/GameScreen/GameScreen';
+
 
 import 'react-chessboard-ui/dist/index.css';
 
@@ -39,6 +39,10 @@ import './styles/index.css';
 /* Theme variables */
 import './theme/variables.css';
 
+// Custom screens
+import CreateRoomScreen from './screens/CreateRoomScreen/CreateRoomScreen';
+import AppScreen from './screens/AppScreen/AppScreen';
+
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -46,10 +50,11 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/game">
-          <GameScreen />
+          <AppScreen />
         </Route>
         <Route exact path="/">
-          <Redirect to="/game" />
+          <CreateRoomScreen />
+          {/* <Redirect to="/game" /> */}
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
