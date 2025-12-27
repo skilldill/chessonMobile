@@ -20,3 +20,8 @@ export const MEM_AVATARS = [
     Cat7PNG,
     Cat8PNG,
 ];
+
+export const MEM_AVATARS_GRID = [
+    [Cat1PNG, Cat2PNG, Cat3PNG, Cat4PNG],
+    [Cat5PNG, Cat6PNG, Cat7PNG, Cat8PNG],
+];

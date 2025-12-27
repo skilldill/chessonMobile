@@ -36,7 +36,9 @@ const SetProfileScreen: React.FC<SetProfileScreenProps> = ({ onSetUserName }) =>
                 className="bg-white/4 w-full h-[46px] px-[12px] py-[11px] text-base leading-[24px] placeholder-[#99A1AF] rounded-md focus:border-indigo-700 focus:outline-none focus:border-[2px] focus:border-[#615FFF] focus:px-[10px] focus:bg-black"
               />
             </div>
-            <MemAvatarSelect onSelectAvatar={() => { }} />
+            <div className="w-full px-[36px] py-[20px]">
+              <MemAvatarSelect onSelectAvatar={() => { }} />
+            </div>
           </div>
           <div className="w-full px-[36px] py-[20px]">
             <ChessButton onClick={() => {}}>Create room</ChessButton>
