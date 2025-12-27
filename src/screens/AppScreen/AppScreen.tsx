@@ -43,24 +43,25 @@ const AppScreen: React.FC = () => {
 
   // Если игра началась, показываем игровой экран
   if (userColor && gameState.gameStarted) {
-    return (
-      <GameScreen
-        gameState={gameState}
-        movesHistory={movesHistory}
-        playerColor={userColor}
-        onMove={sendMove}
-        currentMove={lastMove}
-        timer={timer}
-        opponentCursor={opponentCursor}
-        onSendCursorPosition={sendCursorPosition}
-        onSendResignation={sendResignation}
-        onSendGameResult={sendGameResult}
-        resultMessage={resultMessage}
-        onSendDrawOffer={sendDrawOffer}
-        offeredDraw={offeredDraw}
-        connectionLost={connectionLost}
-      />
-    );
+    return null;
+    // return (
+    //   <GameScreen
+    //     gameState={gameState}
+    //     movesHistory={movesHistory}
+    //     playerColor={userColor}
+    //     onMove={sendMove}
+    //     currentMove={lastMove}
+    //     timer={timer}
+    //     opponentCursor={opponentCursor}
+    //     onSendCursorPosition={sendCursorPosition}
+    //     onSendResignation={sendResignation}
+    //     onSendGameResult={sendGameResult}
+    //     resultMessage={resultMessage}
+    //     onSendDrawOffer={sendDrawOffer}
+    //     offeredDraw={offeredDraw}
+    //     connectionLost={connectionLost}
+    //   />
+    // );
   }
 
   return <WaitingScreen />;

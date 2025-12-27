@@ -19,7 +19,15 @@ const SetProfileScreen: React.FC<SetProfileScreenProps> = ({ onSetUserName }) =>
       <IonContent>
         <form className="grid grid-rows-[1fr_88px] h-full">
           <div className="flex flex-col justify-center items-center">
-            <div className="w-full px-[36px] py-[20px]">
+            <IonText>
+              <h1 
+                className="text-white text-center" 
+                style={{ fontSize: 30, margin: 0, fontWeight: 600 }}
+              >
+                Input your name <br /> sand choice avatar
+              </h1>
+            </IonText>
+            <div className="w-full px-[36px] py-[20px] mt-[20px]">
               <input
                 type="text"
                 value={'123'}
