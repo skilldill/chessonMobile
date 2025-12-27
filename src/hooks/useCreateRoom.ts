@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { API_PREFIX } from "../constants/api";
 import { useHistory } from "react-router-dom";
+import { CapacitorHttp } from '@capacitor/core';
 
 type CreateRoomData = {
-    timeMinutes: number; 
+    timeMinutes: number;
     incrementSeconds: number;
 }
 
@@ -19,25 +20,18 @@ export const useCreateRoom = () => {
 
             const timeSeconds = roomData.timeMinutes * 60;
 
-            const response = await fetch(API_PREFIX + '/rooms', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            const response = await CapacitorHttp.post({
+                url: API_PREFIX + '/rooms',
+                data: {
                     whiteTimer: timeSeconds,
                     blackTimer: timeSeconds,
                     increment: roomData.incrementSeconds
-                })
-            });
+                }
+            })
 
-            if (!response.ok) {
-                throw new Error('Failed to create room');
-            }
+            const data = response.data;
 
-            const data = await response.json();
-
-            if (data.success && data.roomId) {
+            if (data.roomId) {
                 // Редирект на созданную комнату
                 history.push(`/game/${data.roomId}`);
             } else {
