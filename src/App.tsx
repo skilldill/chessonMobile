@@ -49,12 +49,11 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/game">
+        <Route exact path="/game/:roomId">
           <AppScreen />
         </Route>
         <Route exact path="/">
           <CreateRoomScreen />
-          {/* <Redirect to="/game" /> */}
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
