@@ -2,7 +2,6 @@ import { IonPage, IonContent, IonImg } from '@ionic/react';
 import { useCellSize } from '../../hooks/useCellSize';
 import { ChessBoard } from 'react-chessboard-ui';
 import { CapturedPieces } from '../../components/CapturedPieces/CapturedPieces';
-import CatAvatarPNG from './cat1.png';
 import { HistoryMoves } from '../../components/HistoryMoves/HistoryMoves';
 import { GameScreenControls } from '../../components/GameScreenControls/GameScreenControls';
 import { ChessTimerWithProfile } from '../../components/ChessTimerWithProfile/ChessTimerWithProfile';
@@ -77,7 +76,6 @@ const PROFILES = [
     seconds: 300,
     nickname: 'Tanya',
     color: 'white' as any,
-    avatar: CatAvatarPNG,
     active: true,
     isRightProfile: false,
   },
@@ -86,7 +84,6 @@ const PROFILES = [
     seconds: 300,
     nickname: 'Tanya',
     color: 'black' as any,
-    avatar: CatAvatarPNG,
     active: false,
     isRightProfile: true,
   }
