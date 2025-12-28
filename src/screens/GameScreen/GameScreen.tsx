@@ -96,9 +96,11 @@ const GameScreen: React.FC = () => {
   return (
     <IonPage>
       <IonContent scrollY={true}>
-        <div className="relative  h-full">
+        <div className="grid grid-rows-[1fr_56px] h-full">
           <div className="flex flex-col h-full justify-center">
-            <HistoryMoves moves={MOVES as any} />
+
+
+            {/* переделать, чтобы не ломало layout <HistoryMoves moves={MOVES as any} /> */}
             <div className="w-full p-[16px]">
               <ChessTimerWithProfile {...PROFILES[0]}/>
             </div>
@@ -113,7 +115,7 @@ const GameScreen: React.FC = () => {
                 }}
               />
             )}
-            <ChessBoard 
+            <ChessBoard
               FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
               onChange={() => {}}
               onEndGame={() => {}}
@@ -133,7 +135,7 @@ const GameScreen: React.FC = () => {
               <ChessTimerWithProfile {...PROFILES[1]}/>
             </div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 p-[12px] flex flex-1 justify-center items-end">
+          <div className="p-[12px] flex justify-center">
             <GameScreenControls 
               onDrawOffer={() => {}}
               onQuitGame={() => {}}

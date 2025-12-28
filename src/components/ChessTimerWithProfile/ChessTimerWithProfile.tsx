@@ -43,8 +43,8 @@ export const ChessTimerWithProfile: FC<ChessTimerWithProfileProps> = (props) => 
                     <div 
                         className="rounded-full bg-black overflow-hidden flex justify-center items-center"
                         style={{
-                            width: screenSize === 'L' ? 32 : 24,
-                            height: screenSize === 'L' ? 32 : 24,
+                            width: screenSize === 'L' ? '32px' : '24px',
+                            height: screenSize === 'L' ? '32px' : '24px',
                         }}
                     >
                         {avatar && <IonImg src={avatar} className="h-full w-full object-cover" />}
@@ -70,7 +70,7 @@ export const ChessTimerWithProfile: FC<ChessTimerWithProfileProps> = (props) => 
             </div>
 
             <div className="flex items-center">
-                <CircleProgress progress={timeInPercent} size={screenSize === 'L' ? 32 : 24} strokeWidth={4} />
+                <CircleProgress progress={timeInPercent} size={screenSize === 'L' ? 32 : 24} strokeWidth={screenSize === 'L' ? 4 : 3} />
             </div>
         </div>
     )
