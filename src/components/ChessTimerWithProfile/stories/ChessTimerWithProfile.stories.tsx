@@ -8,7 +8,9 @@ const meta: Meta<typeof ChessTimerWithProfile> = {
     title: 'Components/ChessTimerWithProfile',
     component: (args) => (
         <div className="w-[375px] h-[200px] rounded-lg border border-gray-200/20 flex items-center justify-center">
-            <ChessTimerWithProfile {...args} />
+            <div className="w-full p-[16px]">
+                <ChessTimerWithProfile {...args} />
+            </div>
         </div>
     ),
 };
