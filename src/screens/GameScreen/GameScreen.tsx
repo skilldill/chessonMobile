@@ -100,7 +100,7 @@ const GameScreen: React.FC = () => {
           <div className="flex flex-col h-full justify-center">
 
 
-            {/* переделать, чтобы не ломало layout <HistoryMoves moves={MOVES as any} /> */}
+            <HistoryMoves moves={MOVES as any} />
             <div className="w-full p-[16px]">
               <ChessTimerWithProfile {...PROFILES[0]}/>
             </div>
