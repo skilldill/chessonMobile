@@ -1,10 +1,8 @@
 import { useState, type FC } from "react";
-import SharedLinkSVG from "../../assets/shared-link.svg";
 import cn from "classnames";
 
 type ShareLinkBlockProps = {
     link: string;
-    onClose: () => void;
 }
 
 export const ShareLinkBlock: FC<ShareLinkBlockProps> = ({ link }) => {
@@ -22,15 +20,8 @@ export const ShareLinkBlock: FC<ShareLinkBlockProps> = ({ link }) => {
 
     return (
         <>
-            <div className="relative w-[430px] h-[380px] fadeIn">
-                <div className="flex h-[80px] absolute  z-100 left-[0px] right-[0px] top-[-40px] justify-center select-none">
-                    <div className="w-[80px] h-[80px] rounded-full bg-back-primary border-[1px] border-[#364153] flex items-center justify-center">
-                        <img src={SharedLinkSVG} alt="Shared Link" className="w-[48px] h-[48px] select-none" />
-                    </div>
-                </div>
-                <div className="w-[430px] h-[380px] relative rounded-xl border-[1px] border-[#364153] rounded-3xl overflow-hidden select-none">
-                    <div className="w-[284px] h-[284px] rounded-full absolute top-[-142px] left-[-84px] bg-[#4F39F6] z-30 blur-[200px]" />
-
+            <div>
+                <div>
                     <div className="w-full h-full flex flex-col items-center absolute top-0 left-0 gap-[48px] z-40 px-[52px] py-[32px]">
                         <h3 className="text-white text-center text-3xl font-semibold mt-[64px]">
                             Copy and send invite <br /> to friend

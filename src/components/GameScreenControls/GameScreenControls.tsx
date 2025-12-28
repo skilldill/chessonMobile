@@ -29,7 +29,7 @@ const RoundedControlButton = ({ icon, active, onClick, onActiveClick }: RoundedC
         >
             <img src={icon} alt="Control Button" height={22} width={22} />
         </div>
-    )
+    );
 }
 
 type GameScreenControlsProps = {

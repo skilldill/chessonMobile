@@ -29,6 +29,8 @@ const AppScreen: React.FC = () => {
   const { userName, setUserName } = useUserData();
 
   const handleSetUserName = (userName: string, avatarIndex: number) => {
+    console.log(userName, avatarIndex);
+
     setUserName(userName);
     connectToRoom({
       userName,
@@ -43,25 +45,23 @@ const AppScreen: React.FC = () => {
 
   // Если игра началась, показываем игровой экран
   if (userColor && gameState.gameStarted) {
-    return null;
-    // return (
-    //   <GameScreen
-    //     gameState={gameState}
-    //     movesHistory={movesHistory}
-    //     playerColor={userColor}
-    //     onMove={sendMove}
-    //     currentMove={lastMove}
-    //     timer={timer}
-    //     opponentCursor={opponentCursor}
-    //     onSendCursorPosition={sendCursorPosition}
-    //     onSendResignation={sendResignation}
-    //     onSendGameResult={sendGameResult}
-    //     resultMessage={resultMessage}
-    //     onSendDrawOffer={sendDrawOffer}
-    //     offeredDraw={offeredDraw}
-    //     connectionLost={connectionLost}
-    //   />
-    // );
+    return (
+      <GameScreen
+        gameState={gameState}
+        movesHistory={movesHistory}
+        playerColor={userColor}
+        onMove={sendMove}
+        currentMove={lastMove}
+        timer={timer}
+        onSendCursorPosition={sendCursorPosition}
+        onSendResignation={sendResignation}
+        onSendGameResult={sendGameResult}
+        resultMessage={resultMessage}
+        onSendDrawOffer={sendDrawOffer}
+        offeredDraw={offeredDraw}
+        connectionLost={connectionLost}
+      />
+    );
   }
 
   return <WaitingScreen />;

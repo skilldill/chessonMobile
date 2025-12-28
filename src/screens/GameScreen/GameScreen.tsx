@@ -1,97 +1,109 @@
-import { IonPage, IonContent, IonImg } from '@ionic/react';
+import { IonPage, IonContent } from '@ionic/react';
 import { useCellSize } from '../../hooks/useCellSize';
-import { ChessBoard } from 'react-chessboard-ui';
+import { ChessBoard, GameResult, JSChessEngine } from 'react-chessboard-ui';
 import { CapturedPieces } from '../../components/CapturedPieces/CapturedPieces';
 import { HistoryMoves } from '../../components/HistoryMoves/HistoryMoves';
 import { GameScreenControls } from '../../components/GameScreenControls/GameScreenControls';
 import { ChessTimerWithProfile } from '../../components/ChessTimerWithProfile/ChessTimerWithProfile';
 import { useScreenSize } from '../../hooks/useScreenSize';
+import { GameState, ChessColor, TimerState, CursorPosition, MoveData } from '../../types';
+import { useState, useMemo, useEffect } from 'react';
+import { INITIAL_FEN } from '../../constants/chess';
+import { useTimers } from '../../hooks/useTimers';
+import { debounce } from '../../utils/debounce';
+import { MEM_AVATARS } from '../../constants/avatars';
 
-import Cat1PNG from '../../assets/avatars/cat_1.png';
+type GameScreenProps = {
+  gameState: GameState;
+  playerColor: ChessColor;
+  movesHistory: MoveData[];
+  currentMove?: MoveData;
+  timer?: TimerState;
+  onMove: (moveData: MoveData) => void;
+  onSendCursorPosition: (position: CursorPosition) => void;
+  onSendResignation: () => void;
+  onSendGameResult: (gameResult: GameResult) => void;
+  onSendDrawOffer: (action: 'offer' | 'accept' | 'decline') => void;
 
-const MOVES = [
-  {
-      figure: { type: "king", color: "white", touched: true },
-      from: [7, 7],
-      to: [7, 6],
-      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
-  },
-  {
-      figure: { type: "pawn", color: "black", touched: true },
-      from: [0, 1],
-      to: [0, 3],
-      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
-  },
-  {
-      figure: { type: "king", color: "white", touched: true },
-      from: [7, 7],
-      to: [7, 6],
-      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
-  },
-  {
-      figure: { type: "pawn", color: "black", touched: true },
-      from: [0, 1],
-      to: [0, 3],
-      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
-  },
-  {
-      figure: { type: "king", color: "white", touched: true },
-      from: [7, 7],
-      to: [7, 6],
-      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
-  },
-  {
-      figure: { type: "pawn", color: "black", touched: true },
-      from: [0, 1],
-      to: [0, 3],
-      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
-  },
-  {
-      figure: { type: "king", color: "white", touched: true },
-      from: [7, 7],
-      to: [7, 6],
-      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
-  },
-  {
-      figure: { type: "pawn", color: "black", touched: true },
-      from: [0, 1],
-      to: [0, 3],
-      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
-  },
-  {
-      figure: { type: "king", color: "white", touched: true },
-      from: [7, 7],
-      to: [7, 6],
-      FEN: "k7/p7/8/8/8/8/7K/8 b - - 0 1",
-  },
-  {
-      figure: { type: "pawn", color: "black", touched: true },
-      from: [0, 1],
-      to: [0, 3],
-      FEN: "k7/8/8/p7/8/8/7K/8 w - a6 0 1",
-  },
-];
+  resultMessage?: string;
+  offeredDraw?: boolean;
+  connectionLost?: boolean;
+}
 
-const PROFILES = [
-  {
-    initSeconds: 300,
-    seconds: 200,
-    nickname: 'Tanya',
-    active: true,
-    avatar: Cat1PNG,
-  },
-  {
-    initSeconds: 300,
-    seconds: 300,
-    nickname: 'Tanya',
-    active: false,
-    avatar: Cat1PNG,
-  }
-]
+const GameScreen: React.FC<GameScreenProps> = ({
+  playerColor,
+  gameState,
+  currentMove,
+  movesHistory,
+  timer,
+  onMove,
+  onSendCursorPosition,
+  onSendDrawOffer,
+  onSendResignation,
+  onSendGameResult,
 
-const GameScreen: React.FC = () => {
+  resultMessage,
+  offeredDraw,
+  connectionLost = false,
+}) => {
   const screenSize = useScreenSize();
   const cellSize = useCellSize();
+
+  const [initialFEN, setInitialFEN] = useState(INITIAL_FEN);
+  const reversed = useMemo(() => playerColor === "black", [playerColor]);
+  const {
+    opponentTime,
+    playerTime,
+    initialOpponentTime,
+    initialPlayerTime,
+  } = useTimers({ timer, playerColor, gameState });
+
+  // Отслеживаем позицию курсора
+  useEffect(() => {
+    const sendPosition = debounce(onSendCursorPosition, 500);
+
+    const handleMouseMove = (event: MouseEvent) => {
+      sendPosition({ x: event.clientX, y: event.clientY })
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  const externalChangeMove = useMemo(() => {
+    if (!currentMove) return undefined;
+    return {
+      move: currentMove,
+      withTransition: true
+    };
+  }, [currentMove]);
+
+  const handleMove = (moveData: MoveData) => {
+    const move = reversed ? JSChessEngine.reverseMove(moveData) : moveData;
+    onMove(move as MoveData);
+  }
+
+  const handleQuitGame = () => {
+    onSendResignation();
+    window.location.href = import.meta.env.VITE_MAIN_SITE;
+  };
+
+  useEffect(() => {
+    setInitialFEN(gameState.currentFEN);
+  }, [])
+
+  const handleCloseResults = () => {
+    window.location.href = import.meta.env.VITE_MAIN_SITE;
+  };
+
+  const playerAvatarIndex = gameState.player?.avatar ? parseInt(gameState.player.avatar) : undefined;
+  const playerAvatar = playerAvatarIndex ? MEM_AVATARS[playerAvatarIndex] : MEM_AVATARS[0];
+
+  const opponentAvatarIndex = gameState.opponent?.avatar ? parseInt(gameState.opponent.avatar) : undefined;
+  const opponentAvatar = opponentAvatarIndex ? MEM_AVATARS[opponentAvatarIndex] : MEM_AVATARS[0];
 
   return (
     <IonPage>
@@ -100,47 +112,67 @@ const GameScreen: React.FC = () => {
           <div className="flex flex-col h-full justify-center">
 
 
-            <HistoryMoves moves={MOVES as any} />
+            <HistoryMoves moves={movesHistory} />
             <div className="w-full p-[16px]">
-              <ChessTimerWithProfile {...PROFILES[0]}/>
+              <ChessTimerWithProfile
+                initSeconds={initialOpponentTime}
+                seconds={opponentTime}
+                nickname={gameState.opponent?.userName || 'Anonym'}
+                avatar={opponentAvatar}
+              />
             </div>
-            
+
             {screenSize === "L" && (
-              <CapturedPieces 
-                FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNB1KBNR w KQkq - 0 1"
-                color="white"
+              <CapturedPieces
+                FEN={movesHistory.length > 0 ? (movesHistory[movesHistory.length - 1].FEN || initialFEN) : initialFEN}
+                color={playerColor === "white" ? "black" : "white"}
                 figure={{
-                  color: "black",
-                  type: "rook",
+                    type: "pawn",
+                    color: playerColor === "white" ? "black" : "white",
                 }}
               />
             )}
             <ChessBoard
-              FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-              onChange={() => {}}
-              onEndGame={() => {}}
-              config={{ cellSize, figureSizePercent: 90 }}
+              FEN={initialFEN}
+              onChange={(moveData) => handleMove(moveData as MoveData)} 
+              onEndGame={onSendGameResult}
+              reversed={playerColor === "black"}
+              change={externalChangeMove}
+              playerColor={playerColor}
+              config={{ 
+                  cellSize, 
+                  whiteCellColor: "#E5E7EB",
+                  blackCellColor: "#A5AEBD",
+                  circleMarkColor: "#0069A8",
+              }}
             />
             {screenSize === "L" && (
-              <CapturedPieces 
-                FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-                color="white"
+              <CapturedPieces
+                FEN={movesHistory.length > 0 ? (movesHistory[movesHistory.length - 1].FEN || initialFEN) : initialFEN}
+                color={playerColor}
                 figure={{
-                  color: "black",
-                  type: "rook",
+                    type: "pawn",
+                    color: playerColor,
                 }}
+                listInBottom={true}
               />
             )}
             <div className="w-full p-[16px]">
-              <ChessTimerWithProfile {...PROFILES[1]}/>
+              <ChessTimerWithProfile
+                initSeconds={initialPlayerTime}
+                seconds={playerTime}
+                nickname={gameState.player?.userName || 'Anonym'}
+                avatar={playerAvatar}
+              />
             </div>
           </div>
           <div className="p-[12px] flex justify-center">
-            <GameScreenControls 
-              onDrawOffer={() => {}}
-              onQuitGame={() => {}}
-              onResignation={() => {}}
-              gameEnded={false}            
+            <GameScreenControls
+              key={resultMessage}
+              gameEnded={!!resultMessage} // Если есть сообщение об окончании игры, то игра закончилась
+              onDrawOffer={() => onSendDrawOffer('offer')}
+              onResignation={onSendResignation}
+              onQuitGame={handleQuitGame}
             />
           </div>
         </div>

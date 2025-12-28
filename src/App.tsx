@@ -50,9 +50,6 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/gameScreen">
-          <GameScreen />
-        </Route>
         <Route exact path="/game/:roomId">
           <AppScreen />
         </Route>
