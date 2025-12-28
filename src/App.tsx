@@ -42,6 +42,7 @@ import './theme/variables.css';
 // Custom screens
 import CreateRoomScreen from './screens/CreateRoomScreen/CreateRoomScreen';
 import AppScreen from './screens/AppScreen/AppScreen';
+import GameScreen from './screens/GameScreen/GameScreen';
 
 setupIonicReact();
 
@@ -49,6 +50,9 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
+        <Route exact path="/gameScreen">
+          <GameScreen />
+        </Route>
         <Route exact path="/game/:roomId">
           <AppScreen />
         </Route>
