@@ -2,6 +2,8 @@ import { FC, useMemo } from "react";
 import { getClockTime } from "../../utils/getClockTime";
 import cn from 'classnames';
 import { CircleProgress } from "../CircleProgress/CircleProgress";
+import { useScreenSize } from "../../hooks/useScreenSize";
+import { IonImg } from "@ionic/react";
 
 type ChessTimerWithProfileProps = {
     initSeconds: number;
@@ -21,6 +23,8 @@ export const ChessTimerWithProfile: FC<ChessTimerWithProfileProps> = (props) => 
         active,
     } = props;
 
+    const screenSize = useScreenSize();
+
     const [minutesStr, secondsStr] = useMemo(
         () => getClockTime(seconds),
         [seconds]
@@ -36,8 +40,14 @@ export const ChessTimerWithProfile: FC<ChessTimerWithProfileProps> = (props) => 
         <div className={cn("w-full grid grid-cols-[32px_1fr_32px] items-center", { 'opacity-55': !active })}>
             <div className="relative">
                 <div className="absolute top-0 left-0 bottom-0 flex items-center gap-[12px]">
-                    <div className="w-[32px] h-[32px] rounded-full bg-black overflow-hidden flex justify-center items-center">
-                        {avatar && <img src={avatar} className="h-full w-full object-cover" />}
+                    <div 
+                        className="rounded-full bg-black overflow-hidden flex justify-center items-center"
+                        style={{
+                            width: screenSize === 'L' ? 32 : 24,
+                            height: screenSize === 'L' ? 32 : 24,
+                        }}
+                    >
+                        {avatar && <IonImg src={avatar} className="h-full w-full object-cover" />}
                     </div>
                     <span className="text-sm font-medium" style={{ fontWeight: 500 }}>
                         {nickname}
@@ -46,7 +56,13 @@ export const ChessTimerWithProfile: FC<ChessTimerWithProfileProps> = (props) => 
             </div>
 
             <div className="flex justify-center">
-                <div className="font-semibold text-[28px] text-white" style={{ lineHeight: '36px' }}>
+                <div 
+                    className="font-semibold text-white" 
+                    style={{ 
+                            lineHeight: screenSize === 'L' ? '36px' : '32px',
+                            fontSize: screenSize === 'L' ? '30px' : '24px'
+                        }}
+                    >
                     <span>{minutesStr}</span>
                     <span>:</span>
                     <span>{secondsStr}</span>
@@ -54,7 +70,7 @@ export const ChessTimerWithProfile: FC<ChessTimerWithProfileProps> = (props) => 
             </div>
 
             <div className="flex items-center">
-                <CircleProgress progress={seconds / (initSeconds * 0.01)} size={32} strokeWidth={4} />
+                <CircleProgress progress={timeInPercent} size={screenSize === 'L' ? 32 : 24} strokeWidth={4} />
             </div>
         </div>
     )

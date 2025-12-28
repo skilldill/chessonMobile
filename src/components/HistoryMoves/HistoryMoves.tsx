@@ -11,7 +11,7 @@ export const HistoryMoves: FC<HistoryMovesProps> = ({ moves }) => {
         <div className="w-full h-[32px] overflow-hidden">
             <div className="min-w-full flex items-center gap-[12px] py-[6px]">
                 {moves.map((move, index) => 
-                    <span className="min-w-[32px] text-sm font-medium text-gray-400" key={index}>{getReadableMoveNotation(move)}</span>
+                    <span className="min-w-[32px] text-sm font-medium text-white" key={index}>{getReadableMoveNotation(move)}</span>
                 )}
             </div>
         </div>

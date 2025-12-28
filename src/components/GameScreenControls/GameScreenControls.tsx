@@ -5,8 +5,6 @@ import CrossMarkRedPNG from "../../assets/cross-mark.png";
 import HandShakePNG from "../../assets/handshake.png";
 import cn from "classnames";
 import styles from "./GameScreenControls.module.css";
-import { useScreenSize } from "../../hooks/useScreenSize";
-import { IonButton } from '@ionic/react';
 
 type RoundedControlButtonProps = {
     icon: string;
@@ -49,7 +47,6 @@ export const GameScreenControls: FC<GameScreenControlsProps> = ({
     onResignation, 
     onQuitGame, 
 }) => {
-    const screenSize = useScreenSize();
     const [showButtons, setShowButtons] = useState(false);
     const [activeActionIndex, setActiveActionIndex] = useState<number>();
 

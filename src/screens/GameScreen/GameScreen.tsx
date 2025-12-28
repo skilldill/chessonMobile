@@ -5,7 +5,9 @@ import { CapturedPieces } from '../../components/CapturedPieces/CapturedPieces';
 import { HistoryMoves } from '../../components/HistoryMoves/HistoryMoves';
 import { GameScreenControls } from '../../components/GameScreenControls/GameScreenControls';
 import { ChessTimerWithProfile } from '../../components/ChessTimerWithProfile/ChessTimerWithProfile';
-import XSwordsSVG from '../../assets/x-swords.svg';
+import { useScreenSize } from '../../hooks/useScreenSize';
+
+import Cat1PNG from '../../assets/avatars/cat_1.png';
 
 const MOVES = [
   {
@@ -73,61 +75,65 @@ const MOVES = [
 const PROFILES = [
   {
     initSeconds: 300,
-    seconds: 300,
+    seconds: 200,
     nickname: 'Tanya',
-    color: 'white' as any,
     active: true,
-    isRightProfile: false,
+    avatar: Cat1PNG,
   },
   {
     initSeconds: 300,
     seconds: 300,
     nickname: 'Tanya',
-    color: 'black' as any,
     active: false,
-    isRightProfile: true,
+    avatar: Cat1PNG,
   }
 ]
 
 const GameScreen: React.FC = () => {
+  const screenSize = useScreenSize();
   const cellSize = useCellSize();
 
   return (
     <IonPage>
       <IonContent scrollY={true}>
-        <div className="flex flex-col h-full">
-          <div className="w-full flex justify-between px-[18px] py-[34px] mb-[6px] items-center">
-            <div className="w-full flex justify-between items-center px-[14px]">
+        <div className="relative  h-full">
+          <div className="flex flex-col h-full justify-center">
+            <HistoryMoves moves={MOVES as any} />
+            <div className="w-full p-[16px]">
               <ChessTimerWithProfile {...PROFILES[0]}/>
-              <IonImg src={XSwordsSVG} />
+            </div>
+            
+            {screenSize === "L" && (
+              <CapturedPieces 
+                FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNB1KBNR w KQkq - 0 1"
+                color="white"
+                figure={{
+                  color: "black",
+                  type: "rook",
+                }}
+              />
+            )}
+            <ChessBoard 
+              FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+              onChange={() => {}}
+              onEndGame={() => {}}
+              config={{ cellSize, figureSizePercent: 90 }}
+            />
+            {screenSize === "L" && (
+              <CapturedPieces 
+                FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+                color="white"
+                figure={{
+                  color: "black",
+                  type: "rook",
+                }}
+              />
+            )}
+            <div className="w-full p-[16px]">
               <ChessTimerWithProfile {...PROFILES[1]}/>
             </div>
           </div>
-          
-          <CapturedPieces 
-            FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNB1KBNR w KQkq - 0 1"
-            color="white"
-            figure={{
-              color: "black",
-              type: "rook",
-            }}
-          />
-          <ChessBoard 
-            FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-            onChange={() => {}}
-            onEndGame={() => {}}
-            config={{ cellSize, figureSizePercent: 90 }}
-          />
-          <CapturedPieces 
-            FEN="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-            color="white"
-            figure={{
-              color: "black",
-              type: "rook",
-            }}
-          />
-          <HistoryMoves moves={MOVES as any} />
-          <div className="flex flex-1 justify-center items-end pb-[12px]">
+          <div className="absolute bottom-0 left-0 right-0 p-[12px] flex flex-1 justify-center items-end">
             <GameScreenControls 
               onDrawOffer={() => {}}
               onQuitGame={() => {}}

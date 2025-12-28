@@ -4,25 +4,20 @@ export type ScreenSize = "S" | "M" | "L";
 
 export const useScreenSize = (): ScreenSize => {
 	const [screenSize, setScreenSize] = useState<ScreenSize>(() => {
-		if (typeof window === "undefined") return "M";
+		if (typeof window === "undefined") return "L";
 		
-		const width = window.innerWidth;
 		const height = window.innerHeight;
 
-		if (width > 1440 && height > 1150) return "L";
-		if (width > 1080) return "M";
+		if (height > 720) return "L";
 		return "S";
 	});
 
 	useEffect(() => {
 		const handleResize = () => {
-			const width = window.innerWidth;
 			const height = window.innerHeight;
 
-			if (width > 1440 && height > 1150) {
+			if (height > 720) {
 				setScreenSize("L");
-			} else if (width > 1080) {
-				setScreenSize("M");
 			} else {
 				setScreenSize("S");
 			}
