@@ -57,7 +57,7 @@ export const ChessTimerWithProfile: FC<ChessTimerWithProfileProps> = (props) => 
 
             <div className="flex justify-center">
                 <div 
-                    className="font-semibold text-white" 
+                    className="font-semibold text-white fadeIn200ms"
                     style={{ 
                             lineHeight: screenSize === 'L' ? '36px' : '32px',
                             fontSize: screenSize === 'L' ? '30px' : '24px'

@@ -130,3 +130,18 @@ ion-page {
 ion-picker {
   --highlight-background: var(--ion-color-dark);
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100;
+  }
+}
+
+.fadeIn200ms {
+  opacity: 0;
+  animation: fadeIn 0.5s linear 1s 1 forwards;
+}
