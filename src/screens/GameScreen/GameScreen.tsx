@@ -12,6 +12,8 @@ import { INITIAL_FEN } from '../../constants/chess';
 import { useTimers } from '../../hooks/useTimers';
 import { debounce } from '../../utils/debounce';
 import { MEM_AVATARS } from '../../constants/avatars';
+import { useHistory } from 'react-router-dom';
+import { useGameStorage } from '../../hooks/useGameStorage';
 
 type GameScreenProps = {
   gameState: GameState;
@@ -48,6 +50,9 @@ const GameScreen: React.FC<GameScreenProps> = ({
 }) => {
   const screenSize = useScreenSize();
   const cellSize = useCellSize();
+  const history = useHistory();
+
+  const { removeGameData } = useGameStorage();
 
   const [initialFEN, setInitialFEN] = useState(INITIAL_FEN);
   const reversed = useMemo(() => playerColor === "black", [playerColor]);
@@ -88,7 +93,8 @@ const GameScreen: React.FC<GameScreenProps> = ({
 
   const handleQuitGame = () => {
     onSendResignation();
-    window.location.href = import.meta.env.VITE_MAIN_SITE;
+    removeGameData();
+    history.push('/');
   };
 
   useEffect(() => {
