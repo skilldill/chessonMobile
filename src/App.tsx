@@ -43,22 +43,27 @@ import './theme/variables.css';
 import CreateRoomScreen from './screens/CreateRoomScreen/CreateRoomScreen';
 import AppScreen from './screens/AppScreen/AppScreen';
 import GameScreen from './screens/GameScreen/GameScreen';
+import { useRestoreGame } from './hooks/useRestoreGame';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/game/:roomId">
-          <AppScreen />
-        </Route>
-        <Route exact path="/">
-          <CreateRoomScreen />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  useRestoreGame();
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route exact path="/game/:roomId">
+            <AppScreen />
+          </Route>
+          <Route exact path="/">
+            <CreateRoomScreen />
+          </Route>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
