@@ -51,7 +51,6 @@ const GameScreen: React.FC<GameScreenProps> = ({
   const screenSize = useScreenSize();
   const cellSize = useCellSize();
   const history = useHistory();
-
   const { removeGameData } = useGameStorage();
 
   const [initialFEN, setInitialFEN] = useState(INITIAL_FEN);
@@ -125,6 +124,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
                 seconds={opponentTime}
                 nickname={gameState.opponent?.userName || 'Anonym'}
                 avatar={opponentAvatar}
+                active={gameState.currentColor === gameState.opponent?.color}
               />
             </div>
 
@@ -169,6 +169,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
                 seconds={playerTime}
                 nickname={gameState.player?.userName || 'Anonym'}
                 avatar={playerAvatar}
+                active={gameState.currentColor === gameState.player?.color}
               />
             </div>
           </div>
