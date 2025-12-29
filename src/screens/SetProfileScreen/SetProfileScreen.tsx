@@ -58,7 +58,7 @@ const SetProfileScreen: React.FC<SetProfileScreenProps> = ({ onSetUserName }) =>
             </div>
           </div>
           <div className="w-full px-[36px] py-[20px]">
-            <ChessButton onClick={hanleToPlay}>Create room</ChessButton>
+            <ChessButton onClick={hanleToPlay}>To play</ChessButton>
           </div>
         </form>
       </IonContent>
