@@ -21,6 +21,31 @@ const WaitingScreen: React.FC = () => {
       }
   };
 
+  const handleShare = async () => {
+      const url = window.location.toString();
+      const shareData = {
+          title: 'Chess Game Invite',
+          text: `Join my chess game! Room ID: ${roomId}`,
+          url: url,
+      };
+
+      try {
+          // Проверяем, поддерживается ли Web Share API
+          if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+              await navigator.share(shareData);
+          } else {
+              // Fallback: копируем в буфер обмена
+              await handleCopy();
+          }
+      } catch (err) {
+          // Пользователь отменил шаринг или произошла ошибка
+          // Fallback: копируем в буфер обмена
+          if ((err as Error).name !== 'AbortError') {
+              await handleCopy();
+          }
+      }
+  };
+
   return (
     <IonPage>
       <IonContent>
@@ -47,18 +72,18 @@ const WaitingScreen: React.FC = () => {
             </IonText>
           </div>
           <div className="py-[20px] px-[36px]">
-            <ChessButton>
+            <ChessButton onClick={handleShare}>
               <div className="flex flex-1 items-center justify-center gap-[4px]">
                 <IonIcon src={ShareIconSVG} />
                 <span>
-                  Share link
+                  Share
                 </span>
               </div>
             </ChessButton>
           </div>
         </div>
 
-        <div className="w-full fixed bottom-0 left-0 flex justify-center items-center z-100">
+        <div className="w-full fixed bottom-0 left-0 flex justify-center items-center z-100 pointer-events-none">
           <div className={cn('flex items-center gap-[12px] border-[1px] bg-back-secondary border-[#364153] rounded-lg p-[16px] opacity-0 translate-y-[0px] transition-all duration-300', {'bounceIn': copied})}>
               <div>
                   <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
