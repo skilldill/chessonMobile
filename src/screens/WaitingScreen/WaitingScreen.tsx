@@ -5,6 +5,7 @@ import ShareLinkSVG from '../../assets/shared-link.svg';
 import { useParams } from 'react-router';
 import cn from 'classnames';
 import { useState } from 'react';
+import { Share } from '@capacitor/share';
 
 const WaitingScreen: React.FC = () => {
   const { roomId } = useParams<{ roomId: string }>();
@@ -23,24 +24,19 @@ const WaitingScreen: React.FC = () => {
 
   const handleShare = async () => {
       const url = window.location.toString();
-      const shareData = {
-          title: 'Chess Game Invite',
-          text: `Join my chess game! Room ID: ${roomId}`,
-          url: url,
-      };
-
+      
       try {
-          // Проверяем, поддерживается ли Web Share API
-          if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-              await navigator.share(shareData);
-          } else {
-              // Fallback: копируем в буфер обмена
-              await handleCopy();
-          }
+          await Share.share({
+              title: 'Chess Game Invite',
+              text: `Join my chess game! Room ID: ${roomId}`,
+              url: url,
+              dialogTitle: 'Share with friends',
+          });
       } catch (err) {
           // Пользователь отменил шаринг или произошла ошибка
           // Fallback: копируем в буфер обмена
           if ((err as Error).name !== 'AbortError') {
+              console.warn('Share failed, falling back to copy:', err);
               await handleCopy();
           }
       }
