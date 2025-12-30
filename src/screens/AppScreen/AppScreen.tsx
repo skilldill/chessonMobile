@@ -16,7 +16,6 @@ const AppScreen: React.FC = () => {
     lastMove,
     movesHistory,
     timer,
-    opponentCursor,
     resultMessage,
     offeredDraw,
     connectionLost,
@@ -61,7 +60,7 @@ const AppScreen: React.FC = () => {
     }
 
     handleSetUserName(storageGameData.playerName, parseInt(storageGameData.avatar));
-  }, [storageGameData])
+  }, [storageGameData]);
 
   // Если пользователь еще не ввел имя, показываем форму
   if (!userName) {

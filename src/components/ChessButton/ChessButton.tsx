@@ -1,11 +1,11 @@
-import { FC, ButtonHTMLAttributes } from "react";
+import { FC, ButtonHTMLAttributes, PropsWithChildren } from "react";
 import cn from 'classnames';
 
 type ChessButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: React.ReactNode;
+
 };
 
-export const ChessButton: FC<ChessButtonProps> = ({
+export const ChessButton: FC<PropsWithChildren<ChessButtonProps>> = ({
   children,
   className = "",
   ...props
