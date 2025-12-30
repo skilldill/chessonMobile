@@ -39,7 +39,7 @@ export const ConnectionNotification: React.FC<ConnectionNotificationProps> = ({
         >
             <div className="flex gap-[12px]">
                 <img src={NonConnectionSVG} alt="non connection" />
-                <p className="text-sm font-medium">
+                <p className="text-[16px] font-medium">
                     {message}
                 </p>
             </div>

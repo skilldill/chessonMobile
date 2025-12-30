@@ -1,5 +1,6 @@
 import { type FC, useEffect, useState, useRef } from "react";
 import styles from "./ResultsActions.module.css";
+import { ChessButton } from "../ChessButton/ChessButton";
 
 type ResultsActionsProps = {
     message?: string;
@@ -72,16 +73,16 @@ export const ResultsActions: FC<ResultsActionsProps> = ({
                 <h2 className="text-white text-xl font-semibold mb-2">
                     Game Result
                 </h2>
-                <p className="text-gray-300 text-sm mb-4 text-center">
+                <p className="text-gray-300 text-[16px] mb-4 text-center">
                     {message || 'Игра завершена'}
                 </p>
-                <div className="flex gap-4">
-                    <button 
+                <div className="w-full flex gap-4">
+                    <ChessButton 
                         className="rounded-md text-sm font-semibold px-4 py-2 bg-[#4F39F6] text-white min-w-[126px] cursor-pointer transition-all duration-300 active:scale-95 focus:outline-none"
                         onClick={handleCloseButton}
                     >
                         Return to the main
-                    </button>
+                    </ChessButton>
                 </div>
             </div>
         </div>

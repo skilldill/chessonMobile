@@ -14,6 +14,9 @@ import { debounce } from '../../utils/debounce';
 import { MEM_AVATARS } from '../../constants/avatars';
 import { useHistory } from 'react-router-dom';
 import { useGameStorage } from '../../hooks/useGameStorage';
+import { ConnectionNotification } from '../../components/ConnectionNotification/ConnectionNotification';
+import { DrawOfferActions } from '../../components/DrawOfferActions/DrawOfferActions';
+import { ResultsActions } from '../../components/ResultsActions/ResultsActions';
 
 type GameScreenProps = {
   gameState: GameState;
@@ -115,7 +118,19 @@ const GameScreen: React.FC<GameScreenProps> = ({
       <IonContent scrollY={true}>
         <div className="grid grid-rows-[1fr_56px] h-full">
           <div className="flex flex-col h-full justify-center">
-
+            <DrawOfferActions
+                offeredDraw={offeredDraw}
+                onAcceptDraw={() => onSendDrawOffer('accept')}
+                onDeclineDraw={() => onSendDrawOffer('decline')}
+            />
+            <ResultsActions
+                message={resultMessage}
+                onClose={handleCloseResults}
+            />
+            <ConnectionNotification
+                message="Connection lost"
+                show={connectionLost}
+            />
 
             <HistoryMoves moves={movesHistory} />
             <div className="w-full p-[16px]">
