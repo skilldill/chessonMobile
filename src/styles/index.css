@@ -115,6 +115,14 @@ ion-content.page {
   justify-content: center;
 }
 
+/* Remove safe-area for MainScreen */
+ion-content.main-screen-content {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
 ion-page {
   --background: #09090B;
 }

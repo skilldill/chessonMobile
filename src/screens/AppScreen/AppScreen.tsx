@@ -32,8 +32,6 @@ const AppScreen: React.FC = () => {
   
 
   const handleSetUserName = (userName: string, avatarIndex: number) => {
-    console.log(userName, avatarIndex);
-
     setUserName(userName);
     connectToRoom({
       userName,

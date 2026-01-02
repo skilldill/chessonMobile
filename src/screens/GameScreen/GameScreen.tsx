@@ -104,7 +104,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
   }, [])
 
   const handleCloseResults = () => {
-    window.location.href = import.meta.env.VITE_MAIN_SITE;
+    history.push('/');
   };
 
   const playerAvatarIndex = gameState.player?.avatar ? parseInt(gameState.player.avatar) : undefined;

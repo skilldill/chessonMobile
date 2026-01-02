@@ -16,7 +16,7 @@ const MainScreen: React.FC = () => {
 
     return (
         <IonPage>
-            <IonContent>
+            <IonContent className="main-screen-content">
                 <div className="h-full relative flex flex-col justify-center items-center">
                     <Chessboard3DScene />
                     <div className="h-[300px] flex flex-col justify-between gap-[24px] absolute right-0 left-0 px-[36px]">

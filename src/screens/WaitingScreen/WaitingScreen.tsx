@@ -14,7 +14,7 @@ const WaitingScreen: React.FC = () => {
 
   const handleCopy = async () => {
       try {
-          await navigator.clipboard.writeText(window.location.toString());
+          await navigator.clipboard.writeText('https://chesson.me/game/' + roomId);
           setCopied(true);
           setTimeout(() => setCopied(false), 2000);
       } catch (err) {
@@ -29,7 +29,7 @@ const WaitingScreen: React.FC = () => {
           await Share.share({
               title: 'Chess Game Invite',
               text: `Join my chess game! Room ID: ${roomId}`,
-              url: url,
+              url: 'https://chesson.me/game/' + roomId,
               dialogTitle: 'Share with friends',
           });
       } catch (err) {
