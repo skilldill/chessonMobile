@@ -3,6 +3,7 @@ import { PlasmaButton } from "../PlasmaButton/PlasmaButton"
 import WhiteFlagPNG from "../../assets/white-flag.png";
 import CrossMarkRedPNG from "../../assets/cross-mark.png";
 import HandShakePNG from "../../assets/handshake.png";
+import RestartIconSVG from "../../assets/restart.svg";
 import cn from "classnames";
 import styles from "./GameScreenControls.module.css";
 import { useScreenSize } from "../../hooks/useScreenSize";
@@ -10,11 +11,12 @@ import { useScreenSize } from "../../hooks/useScreenSize";
 type RoundedControlButtonProps = {
     icon: string;
     active: boolean;
+    sizeIcon?: number;
     onClick: () => void;
     onActiveClick: () => void;
 }
 
-const RoundedControlButton = ({ icon, active, onClick, onActiveClick }: RoundedControlButtonProps) => {
+const RoundedControlButton = ({ icon, active, onClick, onActiveClick, sizeIcon = 22}: RoundedControlButtonProps) => {
     const handleClick = (event: any) => {
         event.stopPropagation();
         active ? onActiveClick() : onClick();
@@ -28,7 +30,7 @@ const RoundedControlButton = ({ icon, active, onClick, onActiveClick }: RoundedC
             )}
             onClick={handleClick}
         >
-            <img src={icon} alt="Control Button" height={22} width={22} />
+            <img src={icon} alt="Control Button" height={sizeIcon} width={sizeIcon} />
         </div>
     );
 }
@@ -36,17 +38,19 @@ const RoundedControlButton = ({ icon, active, onClick, onActiveClick }: RoundedC
 type GameScreenControlsProps = {
     gameEnded: boolean;
 
-    onDrawOffer: () => void;
-    onResignation: () => void;
-    onQuitGame: () => void;
+    onDrawOffer?: () => void;
+    onResignation?: () => void;
+    onQuitGame?: () => void;
+    onRestart?: () => void;
 }
 
 export const GameScreenControls: FC<GameScreenControlsProps> = ({ 
     gameEnded,
 
     onDrawOffer, 
-    onResignation, 
-    onQuitGame, 
+    onResignation,
+    onQuitGame,
+    onRestart,
 }) => {
     const [showButtons, setShowButtons] = useState(false);
     const [activeActionIndex, setActiveActionIndex] = useState<number>();
@@ -74,17 +78,22 @@ export const GameScreenControls: FC<GameScreenControlsProps> = ({
     }
 
     const handleResignation = () => {
-        onResignation();
+        onResignation?.();
         hideButtons();
     }
 
     const handleQuitGame = () => {
-        onQuitGame();
+        onQuitGame?.();
         hideButtons();
     }
 
     const handleDrawOffer = () => {
-        onDrawOffer();
+        onDrawOffer?.();
+        hideButtons();
+    }
+
+    const handleRestart = () => {
+        onRestart?.();
         hideButtons();
     }
 
@@ -104,26 +113,41 @@ export const GameScreenControls: FC<GameScreenControlsProps> = ({
             })}>
                 {!gameEnded && (
                     <>
-                        <RoundedControlButton
-                            icon={HandShakePNG} 
-                            onClick={() => handleNotActiveClick(0)}
-                            onActiveClick={handleDrawOffer}
-                            active={activeActionIndex === 0}
-                        />
-                        <RoundedControlButton
-                            icon={WhiteFlagPNG} 
-                            onClick={() => handleNotActiveClick(1)}
-                            onActiveClick={handleResignation}
-                            active={activeActionIndex === 1}
-                        />
+                        {onDrawOffer && (
+                            <RoundedControlButton
+                                icon={HandShakePNG} 
+                                onClick={() => handleNotActiveClick(0)}
+                                onActiveClick={handleDrawOffer}
+                                active={activeActionIndex === 0}
+                            />
+                        )}
+                        {onResignation && (
+                            <RoundedControlButton
+                                icon={WhiteFlagPNG}
+                                onClick={() => handleNotActiveClick(1)}
+                                onActiveClick={handleResignation}
+                                active={activeActionIndex === 1}
+                            />
+                        )}
                     </>
                 )}
-                <RoundedControlButton
-                    icon={CrossMarkRedPNG} 
-                    onClick={() => handleNotActiveClick(2)}
-                    onActiveClick={handleQuitGame}
-                    active={activeActionIndex === 2}
-                />
+                {onRestart && (
+                    <RoundedControlButton
+                        icon={RestartIconSVG} 
+                        onClick={() => handleNotActiveClick(3)}
+                        onActiveClick={handleRestart}
+                        active={activeActionIndex === 3}
+                        sizeIcon={28}
+                    />
+                )}
+                {onQuitGame && (
+                    <RoundedControlButton
+                        icon={CrossMarkRedPNG} 
+                        onClick={() => handleNotActiveClick(2)}
+                        onActiveClick={handleQuitGame}
+                        active={activeActionIndex === 2}
+                    />
+                )}
             </div>
             <PlasmaButton 
                 active={!gameEnded} 
