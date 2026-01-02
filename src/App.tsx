@@ -44,6 +44,7 @@ import CreateRoomScreen from './screens/CreateRoomScreen/CreateRoomScreen';
 import AppScreen from './screens/AppScreen/AppScreen';
 import GameScreen from './screens/GameScreen/GameScreen';
 import { useRestoreGame } from './hooks/useRestoreGame';
+import MainScreen from './screens/MainScreen/MainScreen';
 
 setupIonicReact();
 
@@ -57,8 +58,11 @@ const App: React.FC = () => {
           <Route exact path="/game/:roomId">
             <AppScreen />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/createRoom">
             <CreateRoomScreen />
+          </Route>
+          <Route exact path="/">
+            <MainScreen />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>
