@@ -42,9 +42,9 @@ import './theme/variables.css';
 // Custom screens
 import CreateRoomScreen from './screens/CreateRoomScreen/CreateRoomScreen';
 import AppScreen from './screens/AppScreen/AppScreen';
-import GameScreen from './screens/GameScreen/GameScreen';
 import { useRestoreGame } from './hooks/useRestoreGame';
 import MainScreen from './screens/MainScreen/MainScreen';
+import TwoAtBoardScreen from './screens/TwoAtBoardScreen/TwoAtBoardScreen';
 
 setupIonicReact();
 
@@ -60,6 +60,9 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/createRoom">
             <CreateRoomScreen />
+          </Route>
+          <Route exact path="/offlineGame">
+            <TwoAtBoardScreen />
           </Route>
           <Route exact path="/">
             <MainScreen />
