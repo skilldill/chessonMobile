@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'chessonMobile',
+  appId: 'me.chesson.app',
+  appName: 'ChessOn Me',
   webDir: 'dist',
   server: {
     allowNavigation: ['chesson.me', '*.chesson.me'],
