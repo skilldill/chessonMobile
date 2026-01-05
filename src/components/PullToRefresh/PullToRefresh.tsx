@@ -1,12 +1,13 @@
-import { FC, PropsWithChildren, useState, TouchEvent } from "react";
+import { FC, PropsWithChildren, useState, TouchEvent, useMemo } from "react";
 import { IonSpinner } from '@ionic/react';
 import { debounce } from "../../utils/debounce";
 
 type PullToRefreshProps = {
     onRefresh?: () => void;
+    loader?: React.ReactElement;
 }
 
-export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ children, onRefresh }) => {
+export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ children, onRefresh, loader }) => {
     const [translateY, setTranslateY] = useState(0);
     const [touchStartY, setTouchStartY] = useState<number>();
     const [withTransition, setWithTransition] = useState(false);
@@ -54,6 +55,8 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
         }, 2100);
     }, 2100);
 
+    const loaderElement = useMemo(() => loader || <IonSpinner />, [loader]);
+
     return (
         <div
             style={{
@@ -68,13 +71,13 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
                 right: 0,
                 left: 0,
                 // height: 60,
-                padding: 40,
+                // padding: 40,
                 zIndex: 90,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-                <IonSpinner />
+                {loaderElement}
             </div>
             <div
                 style={{

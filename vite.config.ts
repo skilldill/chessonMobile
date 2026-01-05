@@ -46,6 +46,7 @@ export default defineConfig(async () => {
         },
       },
     ],
+    assetsInclude: ['**/*.glb', '**/*.gltf'],
     resolve: {
       alias: {
         // Fix for Storybook MDX imports

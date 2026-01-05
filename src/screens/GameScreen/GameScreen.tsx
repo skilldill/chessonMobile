@@ -18,6 +18,8 @@ import { ConnectionNotification } from '../../components/ConnectionNotification/
 import { DrawOfferActions } from '../../components/DrawOfferActions/DrawOfferActions';
 import { ResultsActions } from '../../components/ResultsActions/ResultsActions';
 import { PullToRefresh } from '../../components/PullToRefresh/PullToRefresh';
+import { MaxwellCatLoader } from '../../components/PullToRefresh/MaxwellCatLoader';
+import { OiiaioooooiaiCatLoaderLoader } from '../../components/PullToRefresh/OiiaioooooiaiCatLoader';
 
 type GameScreenProps = {
   gameState: GameState;
@@ -118,8 +120,16 @@ const GameScreen: React.FC<GameScreenProps> = ({
 
   return (
     <IonPage>
-      <IonContent scrollY={true}>
-        <PullToRefresh onRefresh={reconnect}>
+      <IonContent>
+        <PullToRefresh 
+          onRefresh={reconnect} 
+          loader={<MaxwellCatLoader />}
+          // loader={(
+          //   <div style={{ padding: '20px 0px' }}>
+          //     <OiiaioooooiaiCatLoaderLoader />
+          //   </div>
+          // )}
+        >
         
           <div className="grid grid-rows-[1fr_56px] h-full">
             <div className="flex flex-col h-full justify-center">
