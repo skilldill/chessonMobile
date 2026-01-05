@@ -109,6 +109,11 @@ ion-content {
   --color: #ffffffcc;
 }
 
+ion-spinner {
+  width: 30px;
+  height: 30px;
+}
+
 ion-content.page {
   display: flex;
   align-items: center;
