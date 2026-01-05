@@ -19,6 +19,7 @@ const AppScreen: React.FC = () => {
     resultMessage,
     offeredDraw,
     connectionLost,
+    reconnect,
 
     connectToRoom,
     sendMove,
@@ -82,6 +83,7 @@ const AppScreen: React.FC = () => {
         onSendDrawOffer={sendDrawOffer}
         offeredDraw={offeredDraw}
         connectionLost={connectionLost}
+        reconnect={reconnect}
       />
     );
   }

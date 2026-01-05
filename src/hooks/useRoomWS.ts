@@ -92,6 +92,10 @@ export const useRoomWS = (roomId: string) => {
                     setMovesHistory(data.gameState.moveHistory);
                     // Обновляем currentColorMove на основе currentColor
                     setCurrentColorMove(data.gameState.currentColor as FigureColor);
+                    // Обновляем таймер если он есть в gameState
+                    if (data.gameState.timer) {
+                        setTimer(data.gameState.timer);
+                    }
                 }
                 break;
 
@@ -375,6 +379,37 @@ export const useRoomWS = (roomId: string) => {
         sendMessage({ type: 'resign' });
     };
 
+    const reconnect = async () => {
+        if (!userCredentialsRef.current) {
+            console.error('Cannot reconnect: no user credentials stored');
+            return;
+        }
+
+        console.log('reconnect');
+
+        // Сбрасываем счетчик попыток переподключения для ручного переподключения
+        reconnectAttemptsRef.current = 0;
+        isReconnectingRef.current = false;
+        setConnectionLost(false);
+
+        // Сбрасываем локальные состояния, которые могут быть не синхронизированы
+        setLastMove(undefined);
+        setOfferedDraw(false);
+        setResultMessage(undefined);
+
+        // Закрываем текущее соединение если оно есть
+        if (refWS.current) {
+            refWS.current.onclose = null; // Отключаем обработчик чтобы избежать автоматического переподключения
+            refWS.current.close();
+        }
+
+        // Небольшая задержка перед переподключением
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        // Переподключаемся с теми же учетными данными
+        connectToRoom(userCredentialsRef.current, true);
+    };
+
     return {
         // Состояние
         isConnected,
@@ -395,6 +430,7 @@ export const useRoomWS = (roomId: string) => {
         // Функции подключения
         connectToRoom,
         disconnect,
+        reconnect,
         lastMove,
 
         // Функции отправки сообщений

@@ -34,7 +34,13 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
     }
 
     const handleTouchEnd = debounce(() => {
-        if (!touchStartY) return;
+        if (translateY < 80) {
+            setTouchStartY(undefined);
+            return;
+        }
+
+        console.log(touchStartY);
+
         onRefresh?.();
         setWithTransition(true);
         
@@ -43,7 +49,7 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
         }, 2000);
         
         setTimeout(() => {
-            setTouchStartY(0);
+            setTouchStartY(undefined);
             setWithTransition(false);
         }, 2100);
     }, 2100);

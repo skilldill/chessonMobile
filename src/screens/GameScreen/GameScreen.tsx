@@ -30,6 +30,7 @@ type GameScreenProps = {
   onSendResignation: () => void;
   onSendGameResult: (gameResult: GameResult) => void;
   onSendDrawOffer: (action: 'offer' | 'accept' | 'decline') => void;
+  reconnect: () => void;
 
   resultMessage?: string;
   offeredDraw?: boolean;
@@ -47,6 +48,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
   onSendDrawOffer,
   onSendResignation,
   onSendGameResult,
+  reconnect,
 
   resultMessage,
   offeredDraw,
@@ -102,7 +104,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
 
   useEffect(() => {
     setInitialFEN(gameState.currentFEN);
-  }, [])
+  }, [gameState.currentFEN])
 
   const handleCloseResults = () => {
     history.push('/');
@@ -117,7 +119,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
   return (
     <IonPage>
       <IonContent scrollY={true}>
-        <PullToRefresh>
+        <PullToRefresh onRefresh={reconnect}>
         
           <div className="grid grid-rows-[1fr_56px] h-full">
             <div className="flex flex-col h-full justify-center">
