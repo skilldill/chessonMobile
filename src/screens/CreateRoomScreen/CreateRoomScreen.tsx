@@ -25,10 +25,15 @@ const CreateRoomScreen: React.FC = () => {
             <IonContent>
                 <div className="grid grid-rows-[1fr_88px] h-full">
                     <div className="flex flex-col justify-center items-center">
+                        
                         <IonText>
                             <h2>Time settings</h2>
                         </IonText>
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="relative grid grid-cols-2 gap-6">
+                            {/* Перекрытие для артефактов от IonPicker сверху и снизу */}
+                            <div className="absolute z-10 top-[-2px] left-0 right-0 h-[10px] bg-[#09090B]"></div>
+                            <div className="absolute z-10 bottom-[-2px] left-0 right-0 h-[10px] bg-[#09090B]"></div>
+                            
                             <IonPicker>
                                 <IonPickerColumn 
                                     value={timeMinutes} 
