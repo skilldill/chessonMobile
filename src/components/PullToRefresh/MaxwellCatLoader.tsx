@@ -15,20 +15,27 @@ const RotatingCat = () => {
     // Клонируем и настраиваем сцену только один раз с помощью useMemo
     const clonedScene = useMemo(() => {
         if (!scene) return null;
-        const cloned = scene.clone();
+        const cloned = scene.clone(true); // deep clone для клонирования материалов
         
         // Модифицируем материалы только один раз при клонировании
         cloned.traverse((child) => {
             if (child instanceof THREE.Mesh && child.material) {
-                const material = child.material as THREE.MeshStandardMaterial;
-                if (material.isMeshStandardMaterial) {
+                // Клонируем материал, чтобы не изменять оригинал
+                const originalMaterial = child.material as THREE.MeshStandardMaterial;
+                if (originalMaterial.isMeshStandardMaterial) {
+                    // Создаем новый материал на основе оригинала
+                    const material = originalMaterial.clone();
+                    
+                    // Сохраняем исходный цвет, клонируем его и умножаем на копии
+                    const originalColor = originalMaterial.color.clone();
+                    const modifiedColor = originalColor.clone().multiplyScalar(0.5);
+                    material.color.copy(modifiedColor);
+                    
                     // Увеличиваем яркость через emissive
                     material.emissive = new THREE.Color(0xb5b8c0);
                     material.emissiveIntensity = 0.06;
-                    // Увеличиваем яркость базового цвета
-                    if (material.color) {
-                        material.color.multiplyScalar(0.5);
-                    }
+                    
+                    child.material = material;
                 }
             }
         });

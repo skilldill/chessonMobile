@@ -11,6 +11,7 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
     const [translateY, setTranslateY] = useState(0);
     const [touchStartY, setTouchStartY] = useState<number>();
     const [withTransition, setWithTransition] = useState(false);
+    const [showLoader, setShowLoader] = useState(false);
 
     const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
         const { clientY } = event.touches[0];
@@ -25,6 +26,7 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
 
         if (diff > 100) {
             setTimeout(() => {
+                setShowLoader(true);
                 setWithTransition(true);
             }, 10)
 
@@ -52,6 +54,7 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
         setTimeout(() => {
             setTouchStartY(undefined);
             setWithTransition(false);
+            setShowLoader(false);
         }, 2100);
     }, 2100);
 
@@ -77,7 +80,7 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-                {loaderElement}
+                {showLoader && loaderElement}
             </div>
             <div
                 style={{

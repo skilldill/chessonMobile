@@ -20,6 +20,7 @@ import { ResultsActions } from '../../components/ResultsActions/ResultsActions';
 import { PullToRefresh } from '../../components/PullToRefresh/PullToRefresh';
 import { MaxwellCatLoader } from '../../components/PullToRefresh/MaxwellCatLoader';
 import { OiiaioooooiaiCatLoaderLoader } from '../../components/PullToRefresh/OiiaioooooiaiCatLoader';
+import { PullToRefreshLoader } from '../../components/PullToRefresh/PullToRefreshLoader';
 
 type GameScreenProps = {
   gameState: GameState;
@@ -123,7 +124,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
       <IonContent>
         <PullToRefresh 
           onRefresh={reconnect} 
-          loader={<MaxwellCatLoader />}
+          loader={<PullToRefreshLoader />}
           // loader={(
           //   <div style={{ padding: '20px 0px' }}>
           //     <OiiaioooooiaiCatLoaderLoader />
