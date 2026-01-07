@@ -488,7 +488,7 @@ const Scene = () => {
 
 export const Chessboard3DScene = () => {
     return (
-        <Canvas camera={{ position: [30, 30, 30], fov: 50 }} className="absolute inset-0">
+        <Canvas style={{ userSelect: 'none' }} camera={{ position: [30, 30, 30], fov: 50 }} className="absolute inset-0">
             <Scene />
         </Canvas>
     )

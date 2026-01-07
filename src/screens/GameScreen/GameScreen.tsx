@@ -105,9 +105,14 @@ const GameScreen: React.FC<GameScreenProps> = ({
     history.push('/');
   };
 
+  const handleReconnect = () => {
+    reconnect();
+    setInitialFEN(gameState.currentFEN);
+  }
+
   useEffect(() => {
     setInitialFEN(gameState.currentFEN);
-  }, [gameState.currentFEN])
+  }, [])
 
   const handleCloseResults = () => {
     history.push('/');
@@ -123,7 +128,7 @@ const GameScreen: React.FC<GameScreenProps> = ({
     <IonPage>
       <IonContent>
         <PullToRefresh 
-          onRefresh={reconnect} 
+          onRefresh={handleReconnect}
           loader={<PullToRefreshLoader />}
           // loader={(
           //   <div style={{ padding: '20px 0px' }}>
@@ -131,7 +136,6 @@ const GameScreen: React.FC<GameScreenProps> = ({
           //   </div>
           // )}
         >
-        
           <div className="grid grid-rows-[1fr_56px] h-full">
             <div className="flex flex-col h-full justify-center">
               <DrawOfferActions

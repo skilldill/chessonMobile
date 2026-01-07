@@ -90,7 +90,7 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
                   bottom: 0,
                   left: 0,
                   zIndex: 100,
-                  transform: `translateY(${translateY}px)`,
+                  transform: `translateY(calc(${translateY}px + var(--safe-area-inset-top)))`,
                   backgroundColor: 'var(--background)',
                   transition: withTransition ? 'all .1s' : 'none',
                 }}
