@@ -455,8 +455,6 @@ const Scene = () => {
                     const isLightSquare = (row + col) % 2 === 1
                     const cellX = -22.5 + col * 3
                     const cellZ = -22.5 + row * 3
-                    const cellKey = `${cellX + 1.5},${cellZ + 1.5}`
-                    const isOccupied = occupiedPositions.has(cellKey)
 
                     if (isLightSquare) {
                         return (
@@ -468,8 +466,8 @@ const Scene = () => {
                             >
                                 <planeGeometry args={[3, 3]} />
                                 <meshStandardMaterial
-                                    color={isOccupied ? "#ffff00" : "#999999"}
-                                    opacity={isOccupied ? 0.8 : 0.3}
+                                    color="#999999"
+                                    opacity={0.3}
                                     transparent
                                 />
                             </mesh>
