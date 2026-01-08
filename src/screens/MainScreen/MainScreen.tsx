@@ -53,6 +53,7 @@ const MainScreen: React.FC = () => {
             <IonContent className="main-screen-content">
                 <PullToRefresh
                     onRefresh={handleRefresh}
+                    withSafeArea
                     loader={
                         <div style={{ paddingTop: 'var(--safe-area-inset-top)' }}>
                             <PullToRefreshLoader />

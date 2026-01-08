@@ -5,9 +5,15 @@ import { debounce } from "../../utils/debounce";
 type PullToRefreshProps = {
     onRefresh?: () => void;
     loader?: React.ReactElement;
+    withSafeArea?: boolean;
 }
 
-export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ children, onRefresh, loader }) => {
+export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ 
+    children, 
+    loader,
+    withSafeArea, 
+    onRefresh, 
+}) => {
     const [translateY, setTranslateY] = useState(0);
     const [touchStartY, setTouchStartY] = useState<number>();
     const [withTransition, setWithTransition] = useState(false);
@@ -90,7 +96,7 @@ export const PullToRefresh: FC<PropsWithChildren<PullToRefreshProps>> = ({ child
                   bottom: 0,
                   left: 0,
                   zIndex: 100,
-                  transform: `translateY(calc(${translateY}px + var(--safe-area-inset-top)))`,
+                  transform: withSafeArea ? `translateY(calc(${translateY}px + var(--safe-area-inset-top)))` : `translateY(${translateY}px)`,
                   backgroundColor: 'var(--background)',
                   transition: withTransition ? 'all .1s' : 'none',
                 }}
