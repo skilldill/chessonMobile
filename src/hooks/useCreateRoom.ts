@@ -22,6 +22,10 @@ export const useCreateRoom = () => {
 
             const response = await CapacitorHttp.post({
                 url: API_PREFIX + '/rooms',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
                 data: {
                     whiteTimer: timeSeconds,
                     blackTimer: timeSeconds,
